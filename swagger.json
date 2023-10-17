@@ -5,7 +5,7 @@
     "title": "Public Transit Management System REST API",
     "description": "Registro, inicio de sesión, CRUD estaciones, CRUD rutas"
   },
-  "host": "https://public-transit.onrender.com",
+  "host": "public-transit.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
