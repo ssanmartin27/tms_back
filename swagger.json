@@ -5,10 +5,10 @@
     "title": "Public Transit Management System REST API",
     "description": "Registro, inicio de sesión, CRUD estaciones, CRUD rutas"
   },
-  "host": "public-transit.onrender.com",
+  "host": "https://public-transit.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "Bearer": {
@@ -22,6 +22,7 @@
     "/api/users/": {
       "post": {
         "description": "",
+        "tags": ["User"],
         "parameters": [
           {
             "name": "body",
@@ -77,6 +78,7 @@
       },
       "get": {
         "description": "",
+        "tags": ["User"],
         "responses": {
           "200": {
             "description": "OK"
@@ -87,6 +89,7 @@
     "/api/login/": {
       "post": {
         "description": "",
+        "tags": ["User"],
         "parameters": [
           {
             "name": "body",
@@ -117,6 +120,7 @@
     "/api/stations/": {
       "post": {
         "description": "",
+        "tags": ["Station"],
         "security": [{ "Bearer": [] }],
         "parameters": [
           {
@@ -155,6 +159,7 @@
       },
       "get": {
         "description": "",
+        "tags": ["Station"],
         "responses": {
           "200": {
             "description": "OK"
@@ -165,6 +170,7 @@
     "/api/stations/{id}": {
       "get": {
         "description": "",
+        "tags": ["Station"],
         "parameters": [
           {
             "name": "id",
@@ -184,6 +190,7 @@
       },
       "delete": {
         "description": "",
+        "tags": ["Station"],
         "parameters": [
           {
             "name": "id",
@@ -200,6 +207,7 @@
       },
       "put": {
         "description": "",
+        "tags": ["Station"],
         "parameters": [
           {
             "name": "id",
@@ -242,6 +250,7 @@
     "/api/routes/": {
       "post": {
         "description": "",
+        "tags": ["Route"],
         "security": [{ "Bearer": [] }],
         "parameters": [
           {
@@ -277,6 +286,7 @@
       },
       "get": {
         "description": "",
+        "tags": ["Route"],
         "responses": {
           "200": {
             "description": "OK"
@@ -287,6 +297,7 @@
     "/api/routes/{id}": {
       "get": {
         "description": "",
+        "tags": ["Route"],
         "parameters": [
           {
             "name": "id",
@@ -306,6 +317,7 @@
       },
       "delete": {
         "description": "",
+        "tags": ["Route"],
         "parameters": [
           {
             "name": "id",
@@ -322,6 +334,7 @@
       },
       "put": {
         "description": "",
+        "tags": ["Route"],
         "parameters": [
           {
             "name": "id",
@@ -345,6 +358,399 @@
                   "example": "any"
                 },
                 "stations": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vehicles/{type}": {
+      "post": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }, 
+          {  
+            "name": "body",
+            "in": "body",
+            "schema" : {
+              "type": "object",
+              "properties" : {
+                "capacity": {
+                  "example": "Number"
+                },
+              "fuel": {
+                "example": "Number"
+              },
+              "plate": {
+                "example": "String"
+              },
+              "model": {
+                "example": "String"
+              },
+              "maintenances": {
+                "example" : "[]"
+              } 
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vehicles/": {
+      "get": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/vehicles/{id}": {
+      "get": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/vehicles/{type}/{id}": {
+      "put": {
+        "description": "",
+        "tags": ["Vehicle"],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {  
+            "name": "body",
+            "in": "body",
+            "schema" : {
+              "type": "object",
+              "properties" : {
+                "capacity": {
+                  "example": "Number"
+                },
+              "fuel": {
+                "example": "Number"
+              },
+              "plate": {
+                "example": "String"
+              },
+              "model": {
+                "example": "String"
+              },
+              "maintenances": {
+                "example" : "[]"
+              } 
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/maintenances/": {
+      "post": {
+        "description": "",
+        "tags": ["Maintenance"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "example": "any"
+                },
+                "cost": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "tags": ["Maintenance"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/maintenances/{id}": {
+      "get": {
+        "description": "",
+        "tags": ["Maintenance"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags": ["Maintenance"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "tags": ["Maintenance"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "example": "any"
+                },
+                "cost": {
+                  "example": "any"
+                },
+                "date": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/schedules/": {
+      "post": {
+        "description": "",
+        "tags":["Schedule"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "departureTimes": {
+                  "example": "any"
+                },
+                "route": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "tags":["Schedule"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/schedules/{id}": {
+      "get": {
+        "description": "",
+        "tags":["Schedule"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags":["Schedule"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "tags":["Schedule"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "departureTimes": {
+                  "example": "any"
+                },
+                "route": {
                   "example": "any"
                 }
               }

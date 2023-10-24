@@ -31,7 +31,7 @@ usersRouter.post('/', async (request, response) => {
     state: body.state,
     city: body.city,
     zip: body.zip,
-    admin: false
+    admin: true
   })
 
   const savedUser = await user.save()

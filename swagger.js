@@ -8,11 +8,28 @@ const doc = {
     },
     host: 'localhost:3001',      // by default: 'localhost:3000'
     basePath: '/api',  // by default: '/'
-    schemes: ['https'],   // by default: ['http']
+    schemes: ['http'],   // by default: ['http']
+    tags: [{
+      "name": "User",
+      "description": "Endpoints" 
+    },
+    {
+      "name": "Station",
+      "description": "Endpoints" 
+    },
+    {
+      "name": "Route",
+      "description": "Endpoints" 
+    },
+    {
+      "name": "Vehicle",
+      "description": "Endpoints" 
+    }]
 }
 
-const outputFile = './swagger.json';
+const outputFile = './swagger2.json';
 const endpointsFiles = ['./app'];
+
 
 /* NOTE: if you use the express Router, you must pass in the 
    'endpointsFiles' only the root file where the route starts,
