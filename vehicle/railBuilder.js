@@ -3,10 +3,11 @@ const Rail = require("./railConcreteBuilder")
 
 class RailBuilder extends VehicleBuilder {
     constructor() {
+        super()
         this.reset()
     }
     reset() {
-        this.rail = Rail()
+        this.rail = new Rail()
     }
 
     setCapacity(capacity=20) {
