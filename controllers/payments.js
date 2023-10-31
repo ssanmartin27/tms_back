@@ -24,7 +24,7 @@ paymentsRouter.post('/', async (request, response, next) => {
   
   let builder = new PaymentBuilder()
   builder.payment = new Payment(body.rules, body.schedules, body.routes)
-  payment = new PaymentModel(builder.getMicroservice())
+  let payment = new PaymentModel(builder.getMicroservice())
   
 
   const savedPayment = await payment.save()
