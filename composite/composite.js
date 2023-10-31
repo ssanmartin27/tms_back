@@ -2,6 +2,7 @@ const Component = require("./component")
 
 class Composite extends Component {
     constructor () {
+        super()
         this.children = []
     }
 
