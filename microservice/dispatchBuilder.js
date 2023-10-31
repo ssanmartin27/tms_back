@@ -3,7 +3,9 @@ const Dispatch = require("./dispatchConcreteBuilder")
 
 class DispatchBuilder extends MicroserviceBuilder { 
     
-    constructor() {this.reset()}
+    constructor() {
+        super()
+        this.reset()}
     
     reset() {
         this.dispatch = Dispatch([],[],[])
