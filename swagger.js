@@ -6,9 +6,9 @@ const doc = {
       title: 'Public Transit Management System REST API',        // by default: 'REST API'
       description: 'Registro, inicio de sesión, CRUD estaciones, CRUD rutas',  // by default: ''
     },
-    host: 'localhost:3001',      // by default: 'localhost:3000'
+    host: 'public-transit.onrender.com',      // by default: 'localhost:3000'
     basePath: '/',  // by default: '/'
-    schemes: ['http'],   // by default: ['http']
+    schemes: ['https'],   // by default: ['http']
     tags: [{
       "name": "User",
       "description": "Endpoints" 
