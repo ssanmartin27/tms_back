@@ -8,7 +8,7 @@ class DispatchBuilder extends MicroserviceBuilder {
         this.reset()}
     
     reset() {
-        this.dispatch = Dispatch([],[],[])
+        this.dispatch = new Dispatch([],[],[])
     }
 
     configRules(rule='Rule') {
