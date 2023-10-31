@@ -3,6 +3,7 @@ const Paratransit = require("./paratransitConcreteBuilder")
 
 class ParatransitBuilder extends VehicleBuilder {
     constructor() {
+        super()
         this.reset()
     }
     reset() {
