@@ -24,7 +24,7 @@ class PaymentBuilder extends MicroserviceBuilder {
     }
 
     getMicroservice() {
-        payment = this.payment
+        let payment = this.payment
         this.reset()
         return payment 
     }
