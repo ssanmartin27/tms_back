@@ -3,6 +3,7 @@ const Bus = require("./busConcreteBuilder")
 
 class BusBuilder extends VehicleBuilder {
     constructor() {
+        super()
         this.reset()
     }
     reset() {
