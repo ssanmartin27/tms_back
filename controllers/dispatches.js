@@ -23,7 +23,7 @@ dispatchesRouter.post('/', async (request, response, next) => {
   
   
   let builder = new DispatchBuilder()
-  builder.dispatch = Dispatch(body.rules, body.schedules, body.routes)
+  builder.dispatch = new Dispatch(body.rules, body.schedules, body.routes)
   dispatch = new DispatchModel(builder.getMicroservice())
   
 
