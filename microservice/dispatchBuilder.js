@@ -30,7 +30,7 @@ class DispatchBuilder extends MicroserviceBuilder {
     }
 
     getMicroservice() {
-        dispatch = this.dispatch
+        let dispatch = this.dispatch
         this.reset()
         return dispatch 
     }
