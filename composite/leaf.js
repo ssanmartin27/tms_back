@@ -2,6 +2,7 @@ const Component = require("./component")
 
 class Leaf extends Component {
     constructor(vehicle) {
+        super()
         this.vehicle = vehicle
     }
 
