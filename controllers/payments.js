@@ -23,7 +23,7 @@ paymentsRouter.post('/', async (request, response, next) => {
   
   
   let builder = new PaymentBuilder()
-  builder.payment = Payment(body.rules, body.schedules, body.routes)
+  builder.payment = new Payment(body.rules, body.schedules, body.routes)
   payment = new PaymentModel(builder.getMicroservice())
   
 
