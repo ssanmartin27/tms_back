@@ -3,10 +3,12 @@ const Payment = require("./paymentConcreteBuilder")
 
 class PaymentBuilder extends MicroserviceBuilder { 
     
-    constructor() {this.reset()}
+    constructor() {
+        super()
+        this.reset()}
     
     reset() {
-        this.payment = Payment([],[],[])
+        this.payment = new Payment([],[],[])
     }
 
     configRules(rule='Rule') {
