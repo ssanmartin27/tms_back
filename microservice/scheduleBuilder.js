@@ -4,10 +4,12 @@ const Route = require("./route")
 
 class ScheduleBuilder extends MicroserviceBuilder { 
     
-    constructor() {this.reset()}
+    constructor() {
+        super()
+        this.reset()}
     
     reset() {
-        this.schedule = Schedule()
+        this.schedule = new Schedule()
     }
 
     configRules(rule='Rule') {
