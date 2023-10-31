@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
-const routeSchema = new mongoose.Schema({
+const routeHistorySchema = new mongoose.Schema({
+    originalId : { type : mongoose.Schema.Types.ObjectId, ref: 'Route' },
     name : String,
     description: String,
     distance: Number,
     stations: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Station' }],
 })
 
-routeSchema.set('toJSON', {
-    transform: (route, returnedObject) => {
+routeHistorySchema.set('toJSON', {
+    transform: (RouteHistory, returnedObject) => {
       returnedObject.id = returnedObject._id.toString()
       delete returnedObject._id
       delete returnedObject.__v
@@ -16,4 +17,4 @@ routeSchema.set('toJSON', {
   })
   
 
-module.exports = mongoose.model('Route', routeSchema)
+module.exports = mongoose.model('RouteHistory', routeHistorySchema)

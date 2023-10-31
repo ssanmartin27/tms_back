@@ -1,4 +1,4 @@
-const schedulesRouter = require("express").Router()
+const schedulesHistoryRouter = require("express").Router()
 const Schedule = require("../models/schedule")
 const jwt = require('jsonwebtoken')
 const Route = require("../models/route")
@@ -13,7 +13,7 @@ const getTokenFrom = request => {
   return null
 }
 
-schedulesRouter.post('/', async (request, response, next) => {
+schedulesHistoryRouter.post('/', async (request, response, next) => {
   const body = request.body
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -21,7 +21,8 @@ schedulesRouter.post('/', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   
-  const schedule = new Schedule({
+  const schedule = new ScheduleHistory({
+    originalId: body.originalId,
     departureTimes: body.departureTimes,
     route: body.route,
   })
@@ -31,14 +32,14 @@ schedulesRouter.post('/', async (request, response, next) => {
 
 })
 
-schedulesRouter.get("/", async (request, response) => {
-  const schedules = await Schedule.find({}).populate("route")
+schedulesHistoryRouter.get("/", async (request, response) => {
+  const schedules = await ScheduleHistory.find({}).populate("route")
   response.json(schedules)
 })
 
 
-schedulesRouter.get('/:id', (request, response, next) => {
-  Schedule.findById(request.params.id)
+schedulesHistoryRouter.get('/:id', (request, response, next) => {
+  ScheduleHistory.findById(request.params.id)
     .then(schedule => {
       if (schedule) {  
         response.json(schedule)
@@ -49,9 +50,9 @@ schedulesRouter.get('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-schedulesRouter.delete('/:id', (request, response, next) => {
+schedulesHistoryRouter.delete('/:id', (request, response, next) => {
 
-  Schedule.findByIdAndRemove(request.params.id)
+  ScheduleHistory.findByIdAndRemove(request.params.id)
     .then(result => {
       response.status(204).end()
     })
@@ -59,30 +60,15 @@ schedulesRouter.delete('/:id', (request, response, next) => {
 })
 
 
-schedulesRouter.put('/:id', (request, response, next) => {
+schedulesHistoryRouter.put('/:id', (request, response, next) => {
   const body = request.body
   const schedule = {
+    originalId: body.originalId,
     departureTimes: body.departureTimes,
     route: body.route,
   }
 
-  Schedule.findById(request.params.id)
-  .then(schedule => {
-    if (schedule) {  
-      let copy = new ScheduleHistory({
-        originalId: schedule._id,
-        departureTimes: schedule.departureTimes,
-        route: schedule.route
-      })
-
-      copy.save()
-    } else {
-      response.status(404).end()
-    }
-  })
-  .catch(error => next(error))
-
-  Schedule.findByIdAndUpdate(request.params.id, schedule, { new: true , runValidators: true, context: 'query'})
+  ScheduleHistory.findByIdAndUpdate(request.params.id, schedule, { new: true , runValidators: true, context: 'query'})
     .then(updatedSchedule => {
       response.json(updatedSchedule)
       console.log(updatedSchedule)
@@ -90,5 +76,5 @@ schedulesRouter.put('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-module.exports = schedulesRouter
+module.exports = schedulesHistoryRouter
 

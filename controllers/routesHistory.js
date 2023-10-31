@@ -1,4 +1,4 @@
-const routesRouter = require("express").Router()
+const routesHistoryRouter = require("express").Router()
 const Station = require("../models/station")
 const jwt = require('jsonwebtoken')
 const Route = require("../models/route")
@@ -13,7 +13,7 @@ const getTokenFrom = request => {
   return null
 }
 
-routesRouter.post('/', async (request, response, next) => {
+routesHistoryRouter.post('/', async (request, response, next) => {
   const body = request.body
   const token = getTokenFrom(request)
   const decodedToken = jwt.verify(token, process.env.SECRET)
@@ -21,7 +21,8 @@ routesRouter.post('/', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   
-  const route = new Route({
+  const route = new RouteHistory({
+    originalId: body.originalId,
     name: body.name,
     description: body.description,
     distance: body.distance,
@@ -33,14 +34,14 @@ routesRouter.post('/', async (request, response, next) => {
 
 })
 
-routesRouter.get("/", async (request, response) => {
-  const routes = await Route.find({}).populate("stations")
+routesHistoryRouter.get("/", async (request, response) => {
+  const routes = await RouteHistory.find({}).populate("stations")
   response.json(routes)
 })
 
 
-routesRouter.get('/:id', (request, response, next) => {
-  Route.findById(request.params.id)
+routesHistoryRouter.get('/:id', (request, response, next) => {
+  RouteHistory.findById(request.params.id)
     .then(route => {
       if (route) {  
         response.json(route)
@@ -51,9 +52,9 @@ routesRouter.get('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-routesRouter.delete('/:id', (request, response, next) => {
+routesHistoryRouter.delete('/:id', (request, response, next) => {
 
-  Route.findByIdAndRemove(request.params.id)
+  RouteHistory.findByIdAndRemove(request.params.id)
     .then(result => {
       response.status(204).end()
     })
@@ -61,34 +62,17 @@ routesRouter.delete('/:id', (request, response, next) => {
 })
 
 
-routesRouter.put('/:id', (request, response, next) => {
+routesHistoryRouter.put('/:id', (request, response, next) => {
   const body = request.body
   const route = {
+    originalId: body.originalId,
     name: body.name,
     description: body.description,
     distance: body.distance,
     stations: body.stations
   }
-  
-  Route.findById(request.params.id)
-    .then(route => {
-      if (route) {  
-          let copy = new RouteHistory({
-          originalId: route._id,
-          name : route.name,
-          description: route.description,
-          distance: route.distance,
-          stations: route.stations
-        })
-        copy.save()
-      } else {
-        response.status(404).end()
-      }
-    })
-    .catch(error => next(error))
 
-
-  Route.findByIdAndUpdate(request.params.id, route, { new: true , runValidators: true, context: 'query'})
+  RouteHistory.findByIdAndUpdate(request.params.id, route, { new: true , runValidators: true, context: 'query'})
     .then(updatedRoute => {
       response.json(updatedRoute)
       console.log(updatedRoute)
@@ -96,5 +80,5 @@ routesRouter.put('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-module.exports = routesRouter
+module.exports = routesHistoryRouter
 

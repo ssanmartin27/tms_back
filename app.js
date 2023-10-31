@@ -9,11 +9,15 @@ const routesRouter = require('./controllers/routes')
 const vehiclesRouter = require('./controllers/vehicles')
 const maintenancesRouter = require('./controllers/maintenances')
 const schedulesRouter = require('./controllers/schedules')
+const paymentsRouter = require('./controllers/payments')
+const dispatchesRouter = require('./controllers/dispatches')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const routesHistoryRouter = require('./controllers/routesHistory')
+const schedulesHistoryRouter = require('./controllers/schedulesHistory')
 
 
 
@@ -42,6 +46,10 @@ app.use('/api/routes', routesRouter)
 app.use('/api/vehicles', vehiclesRouter)
 app.use('/api/maintenances', maintenancesRouter)
 app.use('/api/schedules', schedulesRouter)
+app.use('/api/payments', paymentsRouter)
+app.use('/api/dispatches', dispatchesRouter)
+app.use('/api/routes-history', routesHistoryRouter)
+app.use('/api/schedules-history', schedulesHistoryRouter)
 
 
 app.use(middleware.unknownEndpoint)

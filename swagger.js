@@ -7,7 +7,7 @@ const doc = {
       description: 'Registro, inicio de sesión, CRUD estaciones, CRUD rutas',  // by default: ''
     },
     host: 'localhost:3001',      // by default: 'localhost:3000'
-    basePath: '/api',  // by default: '/'
+    basePath: '/',  // by default: '/'
     schemes: ['http'],   // by default: ['http']
     tags: [{
       "name": "User",
