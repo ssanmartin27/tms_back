@@ -7,7 +7,7 @@ class BusBuilder extends VehicleBuilder {
         this.reset()
     }
     reset() {
-        this.bus = Bus()
+        this.bus = new Bus()
     }
 
     setCapacity(capacity=20) {
