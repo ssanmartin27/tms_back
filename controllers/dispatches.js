@@ -24,7 +24,7 @@ dispatchesRouter.post('/', async (request, response, next) => {
   
   let builder = new DispatchBuilder()
   builder.dispatch = new Dispatch(body.rules, body.schedules, body.routes)
-  dispatch = new DispatchModel(builder.getMicroservice())
+  let dispatch = new DispatchModel(builder.getMicroservice())
   
 
   const savedDispatch = await dispatch.save()
