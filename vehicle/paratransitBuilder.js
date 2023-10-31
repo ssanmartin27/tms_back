@@ -7,7 +7,7 @@ class ParatransitBuilder extends VehicleBuilder {
         this.reset()
     }
     reset() {
-        this.paratransit = Paratransit()
+        this.paratransit = new Paratransit()
     }
 
     setCapacity(capacity=20) {
