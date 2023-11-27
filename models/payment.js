@@ -4,8 +4,8 @@ const paymentSchema = new mongoose.Schema({
     rules : String,
     schedules: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Schedule' }],
     routes: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Route' }],
-    //value: Number,
-    //date: Date
+    value: Number,
+    date: Date
 })
 
 paymentSchema.set('toJSON', {

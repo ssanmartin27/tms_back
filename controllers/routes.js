@@ -1,8 +1,9 @@
 const routesRouter = require("express").Router()
 const Station = require("../models/station")
 const jwt = require('jsonwebtoken')
-const Route = require("../models/route")
+const RouteModel = require("../models/route")
 const RouteHistory = require("../models/routeHistory")
+const Route = require("../microservice/route")
 
 const getTokenFrom = request => {
   const authorization = request.get('authorization')
@@ -21,7 +22,7 @@ routesRouter.post('/', async (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
   
-  const route = new Route({
+  const route = new RouteModel({
     name: body.name,
     description: body.description,
     distance: body.distance,
@@ -34,16 +35,18 @@ routesRouter.post('/', async (request, response, next) => {
 })
 
 routesRouter.get("/", async (request, response) => {
-  const routes = await Route.find({}).populate("stations")
+  const routes = await RouteModel.find({}).populate("stations")
   response.json(routes)
 })
 
 
 routesRouter.get('/:id', (request, response, next) => {
-  Route.findById(request.params.id)
+  RouteModel.findById(request.params.id)
     .then(route => {
       if (route) {  
-        response.json(route)
+        route.populate("stations").then(
+          populatedRoute => response.json(populatedRoute)
+        )
       } else {
         response.status(404).end()
       }
@@ -53,7 +56,7 @@ routesRouter.get('/:id', (request, response, next) => {
 
 routesRouter.delete('/:id', (request, response, next) => {
 
-  Route.findByIdAndRemove(request.params.id)
+  RouteModel.findByIdAndRemove(request.params.id)
     .then(result => {
       response.status(204).end()
     })
@@ -70,7 +73,7 @@ routesRouter.put('/:id', (request, response, next) => {
     stations: body.stations
   }
   
-  Route.findById(request.params.id)
+  RouteModel.findById(request.params.id)
     .then(route => {
       if (route) {  
           let copy = new RouteHistory({
@@ -88,7 +91,7 @@ routesRouter.put('/:id', (request, response, next) => {
     .catch(error => next(error))
 
 
-  Route.findByIdAndUpdate(request.params.id, route, { new: true , runValidators: true, context: 'query'})
+  RouteModel.findByIdAndUpdate(request.params.id, route, { new: true , runValidators: true, context: 'query'})
     .then(updatedRoute => {
       response.json(updatedRoute)
       console.log(updatedRoute)

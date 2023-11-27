@@ -5,10 +5,10 @@
     "title": "Public Transit Management System REST API",
     "description": "Registro, inicio de sesión, CRUD estaciones, CRUD rutas"
   },
-  "host": "public-transit.onrender.com",
+  "host": "localhost:3001",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "Bearer": {

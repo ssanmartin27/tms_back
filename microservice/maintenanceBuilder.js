@@ -3,10 +3,12 @@ const Maintenance = require("./maintenanceConcreteBuilder")
 
 class MaintenanceBuilder extends MicroserviceBuilder { 
     
-    constructor() {this.reset()}
+    constructor() {
+        super()
+        this.reset()}
     
     reset() {
-        this.maintenance = Maintenance()
+        this.maintenance = new Maintenance()
     }
 
     configRules(rule='Rule') {

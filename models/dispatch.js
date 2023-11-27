@@ -4,7 +4,7 @@ const dispatchSchema = new mongoose.Schema({
     rules : String,
     schedules: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Schedule' }],
     routes: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Route' }],
-    //date: Date
+    date: Date
 })
 
 dispatchSchema.set('toJSON', {

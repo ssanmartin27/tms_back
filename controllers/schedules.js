@@ -26,7 +26,9 @@ schedulesRouter.post('/', async (request, response, next) => {
     route: body.route,
   })
 
-  const savedSchedule = await schedule.save()
+  const savedSchedule = await schedule.save().then(
+    t => t.populate("route")
+  )
   response.json(savedSchedule)
 
 })

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const scheduleHistorySchema = new mongoose.Schema({
   originalId: { type : mongoose.Schema.Types.ObjectId, ref: 'Schedule' },
-  departureTimes: [{type: Number}],
+  departureTimes: [{start: String, end:String, vehicles:[String]}],
   route: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Route' }],
 })
 
